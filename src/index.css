@@ -19,6 +19,8 @@
   --color-offline: #6b7280;
   
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-digital: 'Chakra Petch', 'JetBrains Mono', monospace;
 }
 
 /* Custom base styles */
@@ -36,5 +38,85 @@
   
   .glass-dark {
     @apply bg-slate-900/80 backdrop-blur-md border border-slate-800/50 shadow-md;
+  }
+
+  /* Universal Glowing Card Classes */
+  .card-glow {
+    background-color: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.08), 0 0 16px rgba(37, 99, 235, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow:hover {
+    border-color: rgba(147, 197, 253, 0.85);
+    box-shadow: 0 10px 30px -4px rgba(37, 99, 235, 0.18), 0 0 22px rgba(59, 130, 246, 0.14);
+    transform: translateY(-2px);
+  }
+
+  .card-glow-static {
+    background-color: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.08), 0 0 16px rgba(37, 99, 235, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-glow-primary {
+    background-color: #ffffff;
+    border: 1px solid rgba(191, 219, 254, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.12), 0 0 16px rgba(59, 130, 246, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow-primary:hover {
+    border-color: rgba(96, 165, 250, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(37, 99, 235, 0.24), 0 0 24px rgba(59, 130, 246, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .card-glow-success {
+    background-color: #ffffff;
+    border: 1px solid rgba(167, 243, 208, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.12), 0 0 16px rgba(16, 185, 129, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow-success:hover {
+    border-color: rgba(52, 211, 153, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(16, 185, 129, 0.24), 0 0 24px rgba(16, 185, 129, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .card-glow-info {
+    background-color: #ffffff;
+    border: 1px solid rgba(186, 230, 253, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(14, 165, 233, 0.12), 0 0 16px rgba(14, 165, 233, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow-info:hover {
+    border-color: rgba(56, 189, 248, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(14, 165, 233, 0.24), 0 0 24px rgba(14, 165, 233, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .card-glow-warning {
+    background-color: #ffffff;
+    border: 1px solid rgba(254, 215, 170, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.12), 0 0 16px rgba(245, 158, 11, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow-warning:hover {
+    border-color: rgba(251, 191, 36, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(245, 158, 11, 0.24), 0 0 24px rgba(245, 158, 11, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .card-glow-danger {
+    background-color: #ffffff;
+    border: 1px solid rgba(254, 205, 211, 0.85);
+    box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.12), 0 0 16px rgba(239, 68, 68, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-glow-danger:hover {
+    border-color: rgba(251, 113, 133, 0.95);
+    box-shadow: 0 12px 32px -4px rgba(239, 68, 68, 0.24), 0 0 24px rgba(239, 68, 68, 0.25);
+    transform: translateY(-2px);
   }
 }

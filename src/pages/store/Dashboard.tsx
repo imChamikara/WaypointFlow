@@ -22,7 +22,7 @@ export const StoreDashboard: React.FC = () => {
           <h1 className="text-2xl font-bold text-slate-900">Good morning</h1>
           <p className="text-slate-500">Waypoint Fresh • {myOutletId}</p>
         </div>
-        <Link to="/store/orders/new" className="bg-primary-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-primary-700 transition-colors shadow-sm flex items-center gap-2">
+        <Link to="/store/orders/new" className="bg-primary-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-primary-700 transition-all shadow-[0_2px_12px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_18px_rgba(37,99,235,0.4)] flex items-center gap-2 text-sm">
           <Package size={18} /> Create New Order
         </Link>
       </div>
@@ -34,15 +34,15 @@ export const StoreDashboard: React.FC = () => {
         <KPICard title="Issues" value={0} icon={AlertCircle} color="danger" />
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
+      <div className="card-glow rounded-xl overflow-hidden">
+        <div className="px-6 py-4 border-b border-slate-200/80 flex justify-between items-center bg-slate-50/60">
           <h2 className="font-semibold text-slate-800">Recent Orders</h2>
-          <Link to="/store/orders" className="text-sm font-medium text-primary-600 hover:text-primary-700">View All</Link>
+          <Link to="/store/orders" className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">View All</Link>
         </div>
         
         <div className="divide-y divide-slate-100">
           {myOrders.length > 0 ? myOrders.map(order => (
-            <div key={order.id} className="p-5 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+            <div key={order.id} className="p-5 hover:bg-slate-50/70 transition-colors flex flex-col sm:flex-row justify-between sm:items-center gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-1">
                   <span className="font-bold text-lg text-slate-900">{order.id}</span>
@@ -68,11 +68,11 @@ export const StoreDashboard: React.FC = () => {
                   <div className="text-sm font-bold text-primary-600 mb-2">ETA: 06:25 AM</div>
                 )}
                 {order.status === 'Delivered' ? (
-                  <button className="px-4 py-2 bg-success text-white text-sm font-medium rounded-lg hover:bg-success/90 transition-colors">
+                  <button className="px-4 py-2 bg-success text-white text-sm font-medium rounded-lg hover:bg-success/90 transition-colors shadow-sm">
                     Confirm Receipt
                   </button>
                 ) : (
-                  <button className="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1">
+                  <button className="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:bg-slate-50 hover:border-primary-300 transition-colors flex items-center gap-1">
                     Track Order <ChevronRight size={16} />
                   </button>
                 )}
@@ -90,20 +90,29 @@ export const StoreDashboard: React.FC = () => {
 };
 
 const KPICard = ({ title, value, icon: Icon, color = 'primary' }: any) => {
-  const colorMap = {
-    primary: "text-primary-600 bg-primary-50 border-primary-100",
-    success: "text-success bg-success/10 border-success/20",
-    info: "text-info bg-info/10 border-info/20",
-    danger: "text-danger bg-danger/10 border-danger/20",
+  const glowMap = {
+    primary: "card-glow-primary",
+    success: "card-glow-success",
+    info: "card-glow-info",
+    danger: "card-glow-danger",
+  };
+
+  const badgeMap = {
+    primary: "bg-primary-50 text-primary-600 ring-1 ring-primary-500/20 shadow-[0_0_10px_rgba(37,99,235,0.15)]",
+    success: "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.15)]",
+    info: "bg-sky-50 text-sky-600 ring-1 ring-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.15)]",
+    danger: "bg-rose-50 text-rose-600 ring-1 ring-rose-500/20 shadow-[0_0_10px_rgba(239,68,68,0.15)]",
   };
 
   return (
-    <div className={clsx("rounded-xl p-5 border flex flex-col justify-between h-full", colorMap[color as keyof typeof colorMap])}>
+    <div className={clsx("rounded-xl p-5 flex flex-col justify-between h-full group", glowMap[color as keyof typeof glowMap])}>
       <div className="flex justify-between items-start mb-4">
-        <div className="text-sm font-semibold opacity-80 uppercase tracking-wide">{title}</div>
-        <Icon size={20} className="opacity-70" />
+        <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">{title}</div>
+        <div className={clsx("w-9 h-9 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-105", badgeMap[color as keyof typeof badgeMap])}>
+          <Icon size={18} />
+        </div>
       </div>
-      <div className="text-4xl font-black">{value}</div>
+      <div className="text-3xl font-black text-slate-900">{value}</div>
     </div>
   );
 };

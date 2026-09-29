@@ -56,7 +56,7 @@ export const DriverHome: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6">
+          <div className="card-glow rounded-xl p-5 mb-6">
             <h2 className="text-lg font-bold text-slate-900 mb-4">Today's Route</h2>
             
             <div className="relative pl-6 space-y-6 before:absolute before:inset-y-0 before:left-2 before:w-0.5 before:bg-slate-200">
@@ -69,7 +69,7 @@ export const DriverHome: React.FC = () => {
                   <div key={idx} className={clsx("relative", isFuture ? "opacity-50" : "")}>
                     <div className={clsx(
                       "absolute -left-8 w-4 h-4 rounded-full border-2 bg-white",
-                      isCompleted ? "border-success bg-success" : isNext ? "border-primary-600 border-4" : "border-slate-300"
+                      isCompleted ? "border-success bg-success" : isNext ? "border-primary-600 border-4 shadow-[0_0_8px_rgba(37,99,235,0.4)]" : "border-slate-300"
                     )} />
                     
                     <div className="flex justify-between items-start">
@@ -98,7 +98,7 @@ export const DriverHome: React.FC = () => {
               <div className="md:max-w-md mx-auto">
                 <button 
                   onClick={() => { setCurrentStopIdx(pendingStopIndex); setView('ARRIVE'); }}
-                  className="w-full bg-primary-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-primary-700 transition-transform active:scale-[0.98] flex justify-center items-center gap-2 text-lg"
+                  className="w-full bg-primary-600 text-white font-bold py-4 rounded-xl shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:bg-primary-700 transition-all active:scale-[0.98] flex justify-center items-center gap-2 text-lg"
                 >
                   <Navigation size={24} /> Continue Route
                 </button>
@@ -118,7 +118,7 @@ export const DriverHome: React.FC = () => {
             <h1 className="text-3xl font-black text-slate-900 mb-2">Waypoint Fresh</h1>
             <h2 className="text-xl font-bold text-slate-500 mb-8">{currentStop?.outletId}</h2>
             
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-6">
+            <div className="card-glow rounded-xl p-6 mb-6">
               <div className="flex justify-between items-center mb-4">
                 <div className="text-slate-500 font-medium">Delivery Window</div>
                 <div className="text-slate-900 font-bold">06:00–07:30</div>
@@ -128,7 +128,7 @@ export const DriverHome: React.FC = () => {
                 <div className="text-slate-900 font-bold">06:25</div>
               </div>
               
-              <div className="border-t border-slate-200 pt-4">
+              <div className="border-t border-slate-100 pt-4">
                 <div className="text-slate-500 font-medium mb-2">Items Expected</div>
                 <div className="flex items-center gap-2 text-lg font-bold text-slate-900">
                   <PackageCheck size={24} className="text-primary-600"/> 20 Crates, 10 Boxes
@@ -140,7 +140,7 @@ export const DriverHome: React.FC = () => {
           <div className="mt-auto space-y-3 pt-6 pb-20 md:pb-6">
             <button 
               onClick={() => { arriveAtStop(activeTrip.id, displayStopIdx); handleBeginDelivery(); }}
-              className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition-transform active:scale-[0.98] text-lg flex justify-center items-center gap-2"
+              className="w-full bg-primary-600 text-white font-bold py-4 rounded-xl shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:bg-primary-700 transition-all active:scale-[0.98] text-lg flex justify-center items-center gap-2"
             >
               <MapPin size={24} /> I have arrived
             </button>
@@ -159,7 +159,7 @@ export const DriverHome: React.FC = () => {
           </div>
 
           <div className="flex-1 space-y-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-1">
                 <CheckCircle2 size={24} className="text-success" />
                 <span className="font-bold text-lg text-slate-900">Items delivered</span>
@@ -167,7 +167,7 @@ export const DriverHome: React.FC = () => {
               <p className="text-sm text-slate-500 ml-9">All items unloaded successfully.</p>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">Receiver Name</label>
                 <input 
@@ -175,7 +175,7 @@ export const DriverHome: React.FC = () => {
                   value={receiverName}
                   onChange={(e) => setReceiverName(e.target.value)}
                   placeholder="e.g. Nimal Perera"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none font-medium text-lg"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none font-medium text-lg"
                 />
               </div>
               <div>
@@ -183,17 +183,17 @@ export const DriverHome: React.FC = () => {
                 <input 
                   type="text" 
                   placeholder="Any damages or issues..."
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-md"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none text-md"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <button className="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-6 flex flex-col items-center justify-center gap-2 text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors">
+              <button className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center gap-2 text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors">
                 <Camera size={32} />
                 <span className="font-bold text-sm">Take Photo</span>
               </button>
-              <button className="bg-white border-2 border-dashed border-slate-300 rounded-2xl p-6 flex flex-col items-center justify-center gap-2 text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors">
+              <button className="bg-white border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center gap-2 text-slate-500 hover:border-primary-400 hover:text-primary-600 transition-colors">
                 <PenTool size={32} />
                 <span className="font-bold text-sm">Signature</span>
               </button>
@@ -228,7 +228,7 @@ export const DriverHome: React.FC = () => {
           <h1 className="text-3xl font-black text-slate-900 mb-2">Delivery Completed</h1>
           <p className="text-xl font-bold text-slate-500 mb-8">{currentStop?.outletId}</p>
           
-          <div className="bg-slate-50 rounded-2xl p-6 w-full max-w-sm mb-8 text-left">
+          <div className="card-glow rounded-xl p-6 w-full max-w-sm mb-8 text-left">
             <div className="flex justify-between items-center mb-4">
               <span className="text-slate-500 font-medium">Receiver</span>
               <span className="font-bold text-slate-900">{receiverName || 'Nimal Perera'}</span>
@@ -256,7 +256,7 @@ export const DriverHome: React.FC = () => {
           <div className="w-full max-w-sm mt-auto pb-20 md:pb-6">
             <button 
               onClick={handleNextStop}
-              className="w-full bg-slate-900 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-slate-800 transition-transform active:scale-[0.98] text-lg"
+              className="w-full bg-primary-600 text-white font-bold py-4 rounded-xl shadow-[0_4px_20px_rgba(37,99,235,0.35)] hover:bg-primary-700 transition-all active:scale-[0.98] text-lg"
             >
               Next Stop
             </button>

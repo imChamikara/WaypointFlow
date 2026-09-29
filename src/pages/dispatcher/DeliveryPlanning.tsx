@@ -31,7 +31,7 @@ export const DeliveryPlanning: React.FC = () => {
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {unassignedOrders.map(order => (
-              <div key={order.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-primary-300 transition-colors">
+              <div key={order.id} className="card-glow rounded-xl p-4">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="font-bold text-slate-900">{order.id}</div>
@@ -42,15 +42,15 @@ export const DeliveryPlanning: React.FC = () => {
                   </span>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 mb-4 bg-slate-50 p-2 rounded-lg">
-                  <div className="flex items-center gap-1"><Package size={14}/> {order.totalWeight}kg / {order.totalVolume}m³</div>
-                  <div className="flex items-center gap-1"><AlertCircle size={14}/> {order.temperatureRequirement}</div>
-                  <div className="col-span-2 flex items-center gap-1"><Clock size={14}/> {order.deliveryWindow.start} - {order.deliveryWindow.end}</div>
+                <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 mb-4 bg-slate-50/80 p-2.5 rounded-lg border border-slate-100">
+                  <div className="flex items-center gap-1"><Package size={14} className="text-primary-500"/> {order.totalWeight}kg / {order.totalVolume}m³</div>
+                  <div className="flex items-center gap-1"><AlertCircle size={14} className="text-primary-500"/> {order.temperatureRequirement}</div>
+                  <div className="col-span-2 flex items-center gap-1"><Clock size={14} className="text-primary-500"/> {order.deliveryWindow.start} - {order.deliveryWindow.end}</div>
                 </div>
                 
                 <button 
                   onClick={() => { setSelectedOrder(order); setShowAssignModal(true); }}
-                  className="w-full py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors"
+                  className="w-full py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-all shadow-[0_2px_10px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_16px_rgba(37,99,235,0.4)]"
                 >
                   Assign Vehicle
                 </button>
@@ -76,8 +76,8 @@ export const DeliveryPlanning: React.FC = () => {
             {todayTrips.map(trip => {
               const vehicle = vehicles.find(v => v.id === trip.vehicleId);
               return (
-                <div key={trip.id} className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                  <div className="p-4 border-b border-slate-200 flex justify-between items-start bg-slate-50/50">
+                <div key={trip.id} className="card-glow rounded-xl overflow-hidden">
+                  <div className="p-4 border-b border-slate-200/80 flex justify-between items-start bg-slate-50/60">
                     <div>
                       <div className="font-bold text-lg text-slate-900">{trip.id}</div>
                       <div className="text-sm text-slate-600 flex items-center gap-2 mt-1">
@@ -122,7 +122,7 @@ export const DeliveryPlanning: React.FC = () => {
                     {!trip.published && (
                       <button 
                         onClick={() => setShowPublishModal(trip.id)}
-                        className="w-full py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors"
+                        className="w-full py-2.5 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-all shadow-[0_2px_10px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_16px_rgba(37,99,235,0.4)]"
                       >
                         Publish Trip
                       </button>
@@ -143,7 +143,7 @@ export const DeliveryPlanning: React.FC = () => {
       {/* Assign Vehicle Modal */}
       {showAssignModal && selectedOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+          <div className="bg-white rounded-xl shadow-[0_20px_60px_-15px_rgba(37,99,235,0.3)] border border-primary-100 w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="p-4 border-b border-slate-200 flex justify-between items-center">
               <h2 className="text-lg font-bold">Assign Vehicle</h2>
               <button onClick={() => setShowAssignModal(false)} className="p-1 hover:bg-slate-100 rounded text-slate-500"><X size={20}/></button>

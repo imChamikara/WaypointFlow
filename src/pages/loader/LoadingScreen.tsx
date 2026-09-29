@@ -91,14 +91,14 @@ export const LoadingScreen: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
-        <div className="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-          <span className="font-semibold text-sm">Progress</span>
-          <span className="text-sm font-medium">{totalChecked} / {totalItems} Items loaded</span>
+      <div className="card-glow rounded-xl overflow-hidden mb-6">
+        <div className="p-4 bg-slate-50/60 border-b border-slate-200/80 flex justify-between items-center">
+          <span className="font-semibold text-sm text-slate-800">Progress</span>
+          <span className="text-sm font-semibold text-primary-600 bg-primary-50 px-2.5 py-0.5 rounded-md border border-primary-100">{totalChecked} / {totalItems} Items loaded</span>
         </div>
-        <div className="h-2 bg-slate-100">
+        <div className="h-2.5 bg-slate-100">
           <div 
-            className="h-full bg-primary-500 transition-all duration-300" 
+            className="h-full bg-primary-600 transition-all duration-300 shadow-[0_0_8px_rgba(37,99,235,0.4)]" 
             style={{ width: `${(totalChecked / Math.max(1, totalItems)) * 100}%` }}
           />
         </div>
@@ -110,10 +110,10 @@ export const LoadingScreen: React.FC = () => {
           if (stopOrders.length === 0) return null;
 
           return (
-            <div key={stopIndex} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+            <div key={stopIndex} className="card-glow rounded-xl overflow-hidden">
+              <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-700 font-bold flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-xl bg-primary-50 text-primary-700 ring-1 ring-primary-500/20 font-bold flex items-center justify-center text-sm shadow-sm">
                     {stopIndex + 1}
                   </div>
                   <div>

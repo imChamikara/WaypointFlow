@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store/useAppStore';
-import { Bell, User, Monitor, Package, Truck, Store, Menu, X, LayoutDashboard, ClipboardList, Route, AlertTriangle, Settings, RefreshCw, WifiOff } from 'lucide-react';
+import { Bell, User, Package, Truck, Menu, X, LayoutDashboard, ClipboardList, Route, AlertTriangle, Settings, RefreshCw, WifiOff } from 'lucide-react';
 import clsx from 'clsx';
 import { Role } from '../../types/logistics';
 
@@ -9,7 +9,7 @@ export const AppLayout: React.FC = () => {
   const { currentRole, setCurrentRole, isOffline, offlineQueue, syncOfflineQueue } = useAppStore();
   const location = useLocation();
   const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleRoleChange = (newRole: Role) => {
     setCurrentRole(newRole);
@@ -54,7 +54,6 @@ export const AppLayout: React.FC = () => {
   };
 
   const navItems = getNavItems();
-  const isDriver = currentRole === 'Driver';
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden text-slate-900">
@@ -110,17 +109,21 @@ export const AppLayout: React.FC = () => {
         <header className="bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 py-3 shrink-0">
           
           {/* Mobile menu button */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-2.5 md:hidden">
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 -ml-2 text-slate-500 rounded-md hover:bg-slate-100">
               <Menu size={20} />
             </button>
             <div className="font-bold tracking-tight">Waypoint<span className="text-primary-600">Flow</span></div>
+            <LiveClock compact={true} />
           </div>
 
-          {/* Desktop Header Info */}
-          <div className="hidden md:flex items-center text-sm text-slate-500">
-            <span className="font-medium text-slate-700 mr-2">{currentRole} Portal</span>
-            • Today, 29 September 2026
+          {/* Desktop Header Info with Live 24h Clock */}
+          <div className="hidden md:flex items-center gap-3 text-sm text-slate-500">
+            <span className="font-semibold text-slate-800">{currentRole} Portal</span>
+            <span className="text-slate-300">•</span>
+            <span>Today, 29 September 2026</span>
+            <span className="text-slate-300">•</span>
+            <LiveClock />
           </div>
 
           <div className="flex items-center gap-4 ml-auto">
@@ -208,5 +211,125 @@ export const AppLayout: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+interface LiveClockProps {
+  compact?: boolean;
+}
+
+const LiveClock: React.FC<LiveClockProps> = ({ compact = false }) => {
+  const [time, setTime] = useState<{ hh: string; mm: string; ss: string }>(() => {
+    const d = new Date();
+    return {
+      hh: String(d.getHours()).padStart(2, '0'),
+      mm: String(d.getMinutes()).padStart(2, '0'),
+      ss: String(d.getSeconds()).padStart(2, '0'),
+    };
+  });
+
+  const [styleMode, setStyleMode] = useState<number>(() => {
+    const saved = localStorage.getItem('waypoint_clock_mode');
+    return saved !== null ? Number(saved) : 0;
+  });
+
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      setTime({
+        hh: String(d.getHours()).padStart(2, '0'),
+        mm: String(d.getMinutes()).padStart(2, '0'),
+        ss: String(d.getSeconds()).padStart(2, '0'),
+      });
+    };
+    const timer = setInterval(update, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const styles = [
+    // 0: Cyber Operations (Chakra Petch, Luminous Blue glow)
+    {
+      id: 'cyber',
+      label: 'Cyber Ops',
+      wrapper: 'bg-gradient-to-r from-blue-50/95 via-white to-sky-50/95 border border-primary-300/80 shadow-[0_2px_14px_-2px_rgba(37,99,235,0.2),0_0_8px_rgba(59,130,246,0.15)] text-slate-900 hover:border-primary-400',
+      fontFamily: "'Chakra Petch', sans-serif",
+      hoursMinClass: 'font-bold text-slate-900 tracking-wider',
+      secClass: 'font-bold text-primary-600 ml-0.5',
+      colonClass: 'text-primary-500 animate-pulse',
+      tag: 'bg-primary-100 text-primary-700 border border-primary-200/80',
+      dotColor: 'bg-emerald-500',
+      pingColor: 'bg-emerald-400',
+    },
+    // 1: Command Dark HUD (JetBrains Mono, Neon Cyan glow)
+    {
+      id: 'hud',
+      label: 'Dark HUD',
+      wrapper: 'bg-slate-950 border border-cyan-500/40 shadow-[0_2px_16px_rgba(6,182,212,0.25),0_0_10px_rgba(15,23,42,0.5)] text-cyan-300 hover:border-cyan-400',
+      fontFamily: "'JetBrains Mono', monospace",
+      hoursMinClass: 'font-bold text-cyan-300 tracking-widest',
+      secClass: 'font-semibold text-cyan-400 ml-0.5',
+      colonClass: 'text-cyan-400 animate-pulse',
+      tag: 'bg-cyan-950 text-cyan-300 border border-cyan-800/80',
+      dotColor: 'bg-cyan-400',
+      pingColor: 'bg-cyan-300',
+    },
+    // 2: Clean Precision (Inter, Slate & Sapphire)
+    {
+      id: 'precision',
+      label: 'Precision',
+      wrapper: 'bg-white border border-slate-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)] text-slate-800 hover:border-primary-300',
+      fontFamily: "'Inter', sans-serif",
+      hoursMinClass: 'font-extrabold text-slate-900 tracking-tight',
+      secClass: 'font-semibold text-slate-500 ml-0.5 font-mono',
+      colonClass: 'text-slate-400 animate-pulse',
+      tag: 'bg-slate-100 text-slate-600 border border-slate-200',
+      dotColor: 'bg-primary-600',
+      pingColor: 'bg-primary-400',
+    },
+  ];
+
+  const current = styles[styleMode % styles.length];
+
+  const toggleStyle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const next = (styleMode + 1) % styles.length;
+    setStyleMode(next);
+    localStorage.setItem('waypoint_clock_mode', String(next));
+  };
+
+  return (
+    <button
+      onClick={toggleStyle}
+      type="button"
+      title={`Current style: ${current.label}. Click to switch font & style!`}
+      className={clsx(
+        "inline-flex items-center gap-2 px-2.5 py-1 rounded-lg transition-all duration-300 cursor-pointer select-none group active:scale-95",
+        current.wrapper
+      )}
+      style={{ fontFamily: current.fontFamily }}
+    >
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className={clsx("animate-ping absolute inline-flex h-full w-full rounded-full opacity-75", current.pingColor)} />
+        <span className={clsx("relative inline-flex rounded-full h-2 w-2", current.dotColor)} />
+      </span>
+
+      <div className="flex items-baseline tabular-nums tracking-wider leading-none">
+        <span className={clsx(compact ? "text-xs" : "text-sm", current.hoursMinClass)}>
+          {time.hh}
+          <span className={clsx("mx-0.5", current.colonClass)}>:</span>
+          {time.mm}
+        </span>
+        <span className={clsx(compact ? "text-[10px]" : "text-xs", current.secClass)}>
+          :{time.ss}
+        </span>
+      </div>
+
+      <span className={clsx(
+        "text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0 transition-opacity",
+        current.tag
+      )}>
+        {current.label}
+      </span>
+    </button>
   );
 };

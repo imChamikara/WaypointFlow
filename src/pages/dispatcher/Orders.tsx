@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { Search, Filter } from 'lucide-react';
 import clsx from 'clsx';
-import { Order } from '../../types/logistics';
 import { Link } from 'react-router-dom';
 
 export const DispatcherOrders: React.FC = () => {
@@ -29,16 +28,16 @@ export const DispatcherOrders: React.FC = () => {
               placeholder="Search orders..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 outline-none"
+              className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all"
             />
           </div>
-          <button className="px-3 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 flex items-center gap-2 text-sm font-medium">
+          <button className="px-3 py-2 border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 hover:border-primary-300 transition-colors flex items-center gap-2 text-sm font-medium">
             <Filter size={16} /> Filters
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="card-glow rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
